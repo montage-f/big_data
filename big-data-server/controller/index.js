@@ -3,8 +3,9 @@
  */
 const superagent = require('./superagent');
 const cheerio = require('./cheerio');
-
+const nightmare = require('./nightmare');
 module.exports = {
     superagent,
-    cheerio
+    cheerio,
+    nightmare
 };
