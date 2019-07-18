@@ -1,7 +1,16 @@
 <template>
-    <div id="app">
+    <div id="App">
         <header>
-            {{ routes }}
+            <div class="logo">
+                我是登录图形
+            </div>
+            <ul>
+                <li v-for="(item, index) of routes" :key="index">
+                    <router-link :to="item.path">
+                        {{ item.name }}
+                    </router-link>
+                </li>
+            </ul>
         </header>
         <div class="content">
             <router-view />
@@ -10,23 +19,16 @@
 </template>
 <script>
 export default {
-    name: 'home',
+    name: 'App',
     components: {},
-    watch: {
-        $route(a) {
-            console.log(a);
-        }
-    },
+    watch: {},
     methods: {},
     computed: {
         routes() {
-            const routes = this.$router.options.routes;
-            return routes;
+            return this.$router.options.routes.filter((v) => !v.isHide);
         }
     },
-    mounted() {
-        console.log(this.$router);
-    }
+    mounted() {}
 };
 </script>
 <style lang="less">
@@ -40,8 +42,15 @@ body {
     width: 100%;
     height: 100%;
 }
+a {
+    text-decoration: none;
+    color: black;
+}
+li {
+    list-style: none;
+}
 
-#app {
+#App {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     color: #2c3e50;
     width: 100%;
@@ -49,17 +58,5 @@ body {
 }
 </style>
 <style scoped lang="less">
-#app {
-    display: flex;
-    flex-direction: column;
-
-    header {
-        border-bottom: 1px solid #ccc;
-        height: 60px;
-    }
-
-    .content {
-        flex: 1;
-    }
-}
+@import './App.less';
 </style>

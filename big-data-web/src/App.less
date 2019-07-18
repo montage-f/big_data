@@ -1,0 +1,40 @@
+#App {
+  display: flex;
+  flex-direction: column;
+
+  header {
+    border-bottom: 1px solid #ccc;
+    height: 60px;
+    display: flex;
+
+    .logo {
+      width: 180px;
+    }
+
+    ul {
+      flex: 1;
+      display: flex;
+
+      li {
+        height: 100%;
+        line-height: 60px;
+        width: 96px;
+        text-align: center;
+        a {
+          display: block;
+          width: 100%;
+          height: 100%;
+          &:hover,&.router-link-active {
+            background: gray;
+            color: white;
+          }
+
+        }
+      }
+    }
+  }
+
+  .content {
+    flex: 1;
+  }
+}
