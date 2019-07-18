@@ -27,7 +27,7 @@ const writeText = (text, fileName) => {
         text = JSON.stringify(text);
     }
     let str = removeBlock(text);
-    stream.write(`${str}\n`);
+    stream.write(`${str}\r\n`);
 };
 module.exports = {
     writeText
