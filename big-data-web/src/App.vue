@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <header>
-            header
+            {{ routes }}
         </header>
         <div class="content">
             <router-view />
@@ -17,7 +17,16 @@ export default {
             console.log(a);
         }
     },
-    methods: {}
+    methods: {},
+    computed: {
+        routes() {
+            const routes = this.$router.options.routes;
+            return routes;
+        }
+    },
+    mounted() {
+        console.log(this.$router);
+    }
 };
 </script>
 <style lang="less">
@@ -43,6 +52,7 @@ body {
 #app {
     display: flex;
     flex-direction: column;
+
     header {
         border-bottom: 1px solid #ccc;
         height: 60px;

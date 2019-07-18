@@ -10,6 +10,10 @@ export default new Router({
     routes: [
         {
             path: '/',
+            redirect: '/news'
+        },
+        {
+            path: '/news',
             name: '新闻',
             component: News
         },
