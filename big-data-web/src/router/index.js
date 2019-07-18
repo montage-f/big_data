@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from '../views/Home.vue';
+import News from '../views/News.vue';
 
 Vue.use(Router);
 
@@ -10,8 +10,18 @@ export default new Router({
     routes: [
         {
             path: '/',
-            name: 'home',
-            component: Home
+            name: '新闻',
+            component: News
+        },
+        {
+            path: '/story',
+            name: '小说',
+            component: () => import('../views/Story')
+        },
+        {
+            path: '/movie',
+            name: '电影',
+            component: () => import('../views/Movie')
         }
     ]
 });

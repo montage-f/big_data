@@ -1,28 +1,55 @@
 <template>
     <div id="app">
-        <router-view />
+        <header>
+            header
+        </header>
+        <div class="content">
+            <router-view />
+        </div>
     </div>
 </template>
-
+<script>
+export default {
+    name: 'home',
+    components: {},
+    watch: {
+        $route(a) {
+            console.log(a);
+        }
+    },
+    methods: {}
+};
+</script>
 <style lang="less">
-#app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
+* {
+    margin: 0;
+    padding: 0;
 }
 
-#nav {
-    padding: 30px;
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
 
-    a {
-        font-weight: bold;
-        color: #2c3e50;
+#app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    color: #2c3e50;
+    width: 100%;
+    height: 100%;
+}
+</style>
+<style scoped lang="less">
+#app {
+    display: flex;
+    flex-direction: column;
+    header {
+        border-bottom: 1px solid #ccc;
+        height: 60px;
+    }
 
-        &.router-link-exact-active {
-            color: #42b983;
-        }
+    .content {
+        flex: 1;
     }
 }
 </style>
