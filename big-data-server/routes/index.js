@@ -1,7 +1,10 @@
 const router = require('koa-router')();
 const {superagent, cheerio, nightmare, file: {writeText}} = require('../controller');
+const {responseInfo: {SuccessInfo, ErrorInfo}} = require('../module');
 
-router.get('/', async (ctx, next) => {
+router.prefix('/api/news');
+
+router.get('/baiDu', async (ctx, next) => {
     let {text} = await superagent('https://news.baidu.com/');
     
     let arr = [
@@ -26,10 +29,10 @@ router.get('/', async (ctx, next) => {
         let str = `${title}-${href}`;
         writeText(str, 'text_01.txt');
     });
-    ctx.body = {
-        title: '获取百度新闻首页 热点新闻 信息',
+    ctx.body = new SuccessInfo({
+        title: '百度新闻首页 热点新闻 信息',
         info: arr
-    };
+    });
 });
 let baiduInternationalNews = (url, dom) => {
     return new Promise((resolve) => {

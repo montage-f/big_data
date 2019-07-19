@@ -5,7 +5,25 @@
             <el-button>导出</el-button>
         </header>
         <div class="content">
-            内容
+            <el-table
+                v-loading="loading"
+                style="width: 100%"
+                border
+                max-height="500"
+                :data="newsList"
+            >
+                <el-table-column :label="newTitle" align="center">
+                    <el-table-column
+                        prop="title"
+                        label="标题"
+                    ></el-table-column>
+                    <el-table-column prop="href" label="链接">
+                        <template scope="scope">
+                            <a :href="scope.row.href">{{ scope.row.href }}</a>
+                        </template>
+                    </el-table-column>
+                </el-table-column>
+            </el-table>
         </div>
     </div>
 </template>
@@ -15,9 +33,24 @@ export default {
     name: 'BaiDu',
     components: {},
     data() {
-        return {};
+        return {
+            newsList: [],
+            newTitle: '',
+            loading: false
+        };
     },
-    created() {},
+    async created() {
+        this.loading = true;
+        let {
+            data: { info, title },
+            status
+        } = await this.$axios.get('/api/news/baiDu');
+        if (status === 200) {
+            this.newsList = info;
+            this.newTitle = title;
+        }
+        this.loading = false;
+    },
     computed: {},
     methods: {}
 };
@@ -25,5 +58,12 @@ export default {
 
 <style scoped lang="less">
 .BaiDu {
+    padding: 10px;
+    box-sizing: border-box;
+    .content {
+        a {
+            color: #409eff;
+        }
+    }
 }
 </style>
