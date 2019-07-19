@@ -1,9 +1,10 @@
 const router = require('koa-router')();
-const {superagent, cheerio, nightmare, file: {writeText}} = require('../controller');
+const {superagent, cheerio, file: {writeText}} = require('../controller');
 const {responseInfo: {SuccessInfo, ErrorInfo}} = require('../module');
 
 router.prefix('/api/news');
 
+// 百度新闻
 router.get('/baiDu', async (ctx, next) => {
     let {text} = await superagent('https://news.baidu.com/');
     
@@ -30,39 +31,31 @@ router.get('/baiDu', async (ctx, next) => {
         writeText(str, 'text_01.txt');
     });
     ctx.body = new SuccessInfo({
-        title: '百度新闻首页 热点新闻 信息',
+        title: '百度热点新闻',
         info: arr
     });
 });
-let baiduInternationalNews = (url, dom) => {
-    return new Promise((resolve) => {
-        nightmare.goto(url)
-        .wait('.InternationalNews')
-        .evaluate(() => {
-            // 这里需要注意, 这个函数内部无法访问外面的变量
-            return document.querySelector('.InternationalNews').innerHTML;
+
+// 网易新闻 https://www.163.com/
+router.get('/netEase', async (ctx, next) => {
+    let {text} = await superagent('https://www.163.com/','gbk');
+    let arr = [
+        cheerio('.yaowen_news .news_default_yw ul li a',text, (dom) =>{
+            return {
+                title: dom.text(),
+                href: dom.attr('href')
+            }
         })
-        .then(text => {
-            let info = cheerio(dom, text, (ele) => {
-                return {
-                    title: ele.text(),
-                    href: ele.attr('href')
-                };
-            });
-            resolve(info);
-        })
-        .catch((err) => {
-            console.log(err);
-            console.log('抓取失败');
-        });
+    ].reduce((p, item) => {
+        p.push(...item);
+        return p;
+    }, []);
+    ctx.body = new SuccessInfo({
+        title: '网易热点新闻',
+        info: arr
     });
-};
-router.get('/string', async (ctx, next) => {
-    ctx.body = {
-        title: '获取百度新闻首页 国际 信息',
-        info: await baiduInternationalNews('https://news.baidu.com/', 'ul.focuslistnews li a')
-    };
 });
+
 
 router.get('/json', async (ctx, next) => {
     ctx.body = {

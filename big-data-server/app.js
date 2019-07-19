@@ -5,7 +5,7 @@ const onerror = require('koa-onerror');
 const bodyparser = require('koa-bodyparser');
 const logger = require('koa-logger');
 
-const index = require('./routes');
+const news = require('./routes/news');
 const users = require('./routes/users');
 
 // error handler
@@ -29,7 +29,7 @@ app.use(async (ctx, next) => {
 });
 
 // routes
-app.use(index.routes(), index.allowedMethods());
+app.use(news.routes(), news.allowedMethods());
 app.use(users.routes(), users.allowedMethods());
 
 // error-handling
