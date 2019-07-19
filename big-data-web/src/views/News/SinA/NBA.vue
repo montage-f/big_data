@@ -1,12 +1,13 @@
-/**Created by montage_fz on 2019-07-18**/
+/**Created by MonTage_fz on 2019/7/19**/
 <template>
-    <div class="SinA">
+    <div class="NBA">
+        nab
     </div>
 </template>
 
 <script>
 export default {
-    name: 'SinA',
+    name: 'NBA',
     components: {},
     data() {
         return {};
@@ -18,6 +19,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-.SinA {
+.NBA {
 }
 </style>

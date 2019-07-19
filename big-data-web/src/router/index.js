@@ -15,6 +15,7 @@ export default new Router({
         },
         {
             path: '/news',
+            redirect: '/news/baiDu',
             name: '新闻',
             component: News,
             children: [
@@ -24,22 +25,27 @@ export default new Router({
                     component: () => import('../views/News/BaiDu')
                 },
                 {
-                    path: 'NetEase',
+                    path: 'netEase',
                     name: '网易',
                     component: () => import('../views/News/NetEase')
                 },
                 {
-                    path: 'TenCent',
+                    path: 'tenCent',
                     name: '腾讯',
                     component: () => import('../views/News/TenCent')
                 },
                 {
-                    path: 'SinA',
+                    path: 'sinA',
                     name: '新浪',
-                    component: () => import('../views/News/SinA')
+                    redirect: '/news/nba'
                 },
                 {
-                    path: 'ThirtySixKr',
+                    path: 'nba',
+                    name: 'NBA',
+                    component: () => import('../views/News/SinA/NBA')
+                },
+                {
+                    path: 'thirtySixKr',
                     name: '36氪',
                     component: () => import('../views/News/ThirtySixKr')
                 }

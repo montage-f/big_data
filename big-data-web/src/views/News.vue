@@ -1,13 +1,9 @@
 <template>
     <div class="News">
         <div class="left">
-            <ul>
-                <li v-for="(item, index) of routes" :key="index">
-                    <router-link :to="path + '/' + item.path">
-                        {{ item.name }}
-                    </router-link>
-                </li>
-            </ul>
+            <el-menu :default-active="$route.path">
+                <SubMenu :routes="routes" :parentPath="path"></SubMenu>
+            </el-menu>
         </div>
         <div class="right">
             <router-view></router-view>
@@ -17,14 +13,17 @@
 
 <script>
 // @ is an alias to /src
+import SubMenu from '../components/SubMenu';
+import asideInfo from '../router/asideInfo';
 
 export default {
     name: 'News',
+    components: {
+        SubMenu
+    },
     computed: {
         routes() {
-            let routes = this.$router.options.routes;
-            let path = this.$route.matched[0].path;
-            return routes.find((item) => item.path === path).children;
+            return asideInfo.find((v) => v.path === this.path).children;
         },
         path() {
             return this.$route.matched[0].path;
@@ -38,10 +37,20 @@ export default {
     display: flex;
     width: 100%;
     height: 100%;
+
     .left {
+        overflow: hidden;
         width: 180px;
         height: 100%;
+        font-size: 12px;
+        border-right: 1px solid #ccc;
+        box-sizing: border-box;
+
+        .el-menu {
+            border-right: none;
+        }
     }
+
     .right {
         flex: 1;
     }
