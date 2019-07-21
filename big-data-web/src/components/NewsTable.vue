@@ -11,7 +11,7 @@
             <el-table-column :label="newTitle" align="center">
                 <el-table-column prop="title" label="标题"></el-table-column>
                 <el-table-column prop="href" label="链接">
-                    <template scope="scope">
+                    <template slot-scope="scope">
                         <a :href="scope.row.href">{{ scope.row.href }}</a>
                     </template>
                 </el-table-column>
