@@ -26,13 +26,7 @@ export default [
             },
             {
                 path: 'sinA',
-                name: '新浪',
-                children: [
-                    {
-                        path: 'nba',
-                        name: 'NBA'
-                    }
-                ]
+                name: '新浪'
             },
             {
                 path: 'thirtySixKr',

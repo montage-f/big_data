@@ -57,7 +57,7 @@ router.get('/tenCent', async (ctx, next) => {
     let data = () => new Promise((resolve) => {
         nightmare.goto('https://news.qq.com/')
         .wait('div#List .channel_mod')
-        .evaluate(() => document.querySelector("div#List .channel_mod").innerHTML)
+        .evaluate(() => document.querySelector('div#List .channel_mod').innerHTML)
         .then((res) => {
             resolve(res);
         });
@@ -96,7 +96,37 @@ router.get('/sina', async (ctx, next) => {
         return p;
     }, []);
     ctx.body = new SuccessInfo({
-        title: '腾讯热点新闻',
+        title: '新浪热点新闻',
+        info: arr
+    });
+});
+
+// 36氪新闻 https://36kr.com/newsflashes
+router.get('/36kr', async (ctx, next) => {
+    let {text} = await superagent('https://36kr.com/newsflashes');
+    let title = cheerio('.kr-layout-content .item-main .newsflash-item a.item-title', text, (dom) => {
+        return {
+            title: dom.text()
+        };
+    });
+    let href = cheerio('.kr-layout-content .item-main .newsflash-item div.item-desc', text, (dom) => {
+        return {
+            href: dom.children('a').attr('href'),
+        };
+    });
+    let arr = [];
+    title.forEach((item, i) => {
+        href.forEach((d, j) => {
+            if (i === j) {
+                arr.push({
+                    ...item,
+                    ...d
+                });
+            }
+        });
+    });
+    ctx.body = new SuccessInfo({
+        title: '36氪热点新闻',
         info: arr
     });
 });

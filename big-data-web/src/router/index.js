@@ -37,12 +37,7 @@ export default new Router({
                 {
                     path: 'sinA',
                     name: '新浪',
-                    redirect: '/news/nba'
-                },
-                {
-                    path: 'nba',
-                    name: 'NBA',
-                    component: () => import('../views/News/SinA/NBA')
+                    component: () => import('../views/News/SinA')
                 },
                 {
                     path: 'thirtySixKr',
