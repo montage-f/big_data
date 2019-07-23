@@ -1,25 +1,15 @@
 /**Created by MonTage_fz on 2019/7/23**/
-<!--饼形图-->
+<!--柱状图-->
 <template>
-    <div class="Pie" ref="Pie" :style="styleInfo"></div>
+    <div class="Bar"></div>
 </template>
 
 <script>
+import Pie from './Pie';
+
 export default {
-    name: 'Pie',
-    props: {
-        styleInfo: {
-            type: Object,
-            default: () => ({
-                width: '600px',
-                height: '600px'
-            })
-        },
-        data: {
-            type: Array,
-            default: () => []
-        }
-    },
+    name: 'Bar',
+    extends:Pie,
     components: {},
     data() {
         return {};
@@ -47,7 +37,7 @@ export default {
             },
             series: [
                 {
-                    name:'薪资范围',
+                    name: '薪资范围',
                     type: 'pie',
                     radius: '55%',
                     center: ['40%', '50%'],
@@ -72,8 +62,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-.Pie {
-    width: 100px;
-    height: 100px;
+.Bar {
 }
 </style>
