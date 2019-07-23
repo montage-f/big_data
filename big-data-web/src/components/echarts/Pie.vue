@@ -18,6 +18,14 @@ export default {
         data: {
             type: Array,
             default: () => []
+        },
+        title: {
+            type: Object,
+            default: () => ({})
+        },
+        grid: {
+            type: Object,
+            default: () => ({})
         }
     },
     components: {},
@@ -25,49 +33,53 @@ export default {
         return {};
     },
     mounted() {
-        let pie = this.$refs.Pie;
-        let myChart = this.$echarts.init(pie);
-        const option = {
-            title: {
-                text: '同名数量统计',
-                subtext: '纯属虚构',
-                x: 'center'
-            },
-            tooltip: {
-                trigger: 'item',
-                formatter: '{a} <br/>{b} : {c} ({d}%)'
-            },
-            legend: {
-                type: 'scroll',
-                orient: 'vertical',
-                right: 10,
-                top: 20,
-                bottom: 20,
-                data: this.data.map((v) => v.name)
-            },
-            series: [
-                {
-                    name:'薪资范围',
-                    type: 'pie',
-                    radius: '55%',
-                    center: ['40%', '50%'],
-                    data: this.data,
-                    itemStyle: {
-                        emphasis: {
-                            shadowBlur: 10,
-                            shadowOffsetX: 0,
-                            shadowColor: 'rgba(0, 0, 0, 0.5)'
-                        }
-                    }
-                }
-            ]
-        };
-
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
+        this.init();
     },
     computed: {},
-    methods: {}
+    methods: {
+        init() {
+            let pie = this.$refs.Pie;
+            let myChart = this.$echarts.init(pie);
+            const option = {
+                title: {
+                    text: '同名数量统计',
+                    subtext: '纯属虚构',
+                    x: 'center'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b} : {c} ({d}%)'
+                },
+                legend: {
+                    type: 'scroll',
+                    orient: 'vertical',
+                    right: 10,
+                    top: 20,
+                    bottom: 20,
+                    data: this.data.map((v) => v.name)
+                },
+                series: [
+                    {
+                        name: '薪资范围',
+                        type: 'pie',
+                        radius: '55%',
+                        center: ['40%', '50%'],
+                        data: this.data,
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+        }
+    }
 };
 </script>
 

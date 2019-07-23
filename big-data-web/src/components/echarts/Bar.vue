@@ -1,7 +1,7 @@
 /**Created by MonTage_fz on 2019/7/23**/
 <!--柱状图-->
 <template>
-    <div class="Bar"></div>
+    <div class="Bar" ref="Bar" :style="styleInfo"></div>
 </template>
 
 <script>
@@ -9,55 +9,66 @@ import Pie from './Pie';
 
 export default {
     name: 'Bar',
-    extends:Pie,
+    extends: Pie,
     components: {},
     data() {
         return {};
     },
     mounted() {
-        let pie = this.$refs.Pie;
-        let myChart = this.$echarts.init(pie);
-        const option = {
-            title: {
-                text: '同名数量统计',
-                subtext: '纯属虚构',
-                x: 'center'
-            },
-            tooltip: {
-                trigger: 'item',
-                formatter: '{a} <br/>{b} : {c} ({d}%)'
-            },
-            legend: {
-                type: 'scroll',
-                orient: 'vertical',
-                right: 10,
-                top: 20,
-                bottom: 20,
-                data: this.data.map((v) => v.name)
-            },
-            series: [
-                {
-                    name: '薪资范围',
-                    type: 'pie',
-                    radius: '55%',
-                    center: ['40%', '50%'],
-                    data: this.data,
-                    itemStyle: {
-                        emphasis: {
-                            shadowBlur: 10,
-                            shadowOffsetX: 0,
-                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+        this.init();
+    },
+    computed: {
+    },
+    methods: {
+        init() {
+            let Bar = this.$refs.Bar;
+            let myChart = this.$echarts.init(Bar);
+            const option = {
+                title: {
+                    ...this.title
+                },
+                color: ['#3398DB'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: this.data.map((v) => v.name),
+                        axisTick: {
+                            alignWithLabel: true
                         }
                     }
-                }
-            ]
-        };
+                ],
+                yAxis: [
+                    {
+                        type: 'value'
+                    }
+                ],
+                series: [
+                    {
+                        name: '岗位个数',
+                        type: 'bar',
+                        barWidth: '60%',
+                        data: this.data.map((v) => v.value)
+                    }
+                ]
+            };
 
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
-    },
-    computed: {},
-    methods: {}
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+        }
+    }
 };
 </script>
 

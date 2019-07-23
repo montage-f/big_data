@@ -2,17 +2,16 @@
 <template>
     <div class="Recruit">
         <!--        智联 前端 招聘信息-->
-        <Pie :data="payRate" :styleInfo="styleInfo"></Pie>
+        <Bar :data="payRate" :styleInfo="styleInfo" :title="title"></Bar>
     </div>
 </template>
 
 <script>
-import Pie from '../../components/echarts/Pie';
-
+import Bar from '../../components/echarts/Bar';
 export default {
     name: 'Recruit',
     components: {
-        Pie
+        Bar
     },
     data() {
         return {
@@ -40,12 +39,29 @@ export default {
                     }
                 });
             });
+            pay.sort((a, b) => {
+                a = parseFloat(a.name.split('-')[0]);
+                b = parseFloat(b.name.split('-')[0]);
+                if (isNaN(a)) {
+                    a = 99999;
+                }
+                if (isNaN(b)) {
+                    b = 99999;
+                }
+                return a - b;
+            });
+            console.log(pay);
             return pay;
         },
         styleInfo() {
             return {
-                width: `600px`,
-                height: `800px`
+                width: '100%',
+                height: '500px'
+            };
+        },
+        title() {
+            return {
+                text: '智联招聘web工资信息'
             };
         }
     },
