@@ -2,15 +2,12 @@
  * Created by montage_fz on 2019-07-22
  */
 const puppeteer = require('puppeteer');
-const path = require('path');
-
-let fileName = path.resolve(__dirname, '../img');
-
-(async () => {
+const {urlToImage, base64ToImage} = require('../img/writeImage');
+const getImage = async () => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.goto('http://image.baidu.com/');
-    console.log(`go to http://image.baidu.com/`);
+    await page.goto('https://image.baidu.com/');
+    console.log(`go to https://image.baidu.com/`);
     
     // 设置窗口大小
     await page.setViewport({
@@ -25,23 +22,32 @@ let fileName = path.resolve(__dirname, '../img');
     // 2. 模拟键盘输入过程, 输入狗
     await page.keyboard.sendCharacter('狗');
     
-    // 3. 模拟鼠标点击事件
-    await page.evaluate(()=>document.querySelector('.s_btn').click())
+    // 3. 模拟鼠标点击事件, 因为该按钮是不可见, 所以需要使此方法去触发, 否则直接page.click('.s_btn')
+    await page.evaluate(() => document.querySelector('.s_btn').click());
     // await page.click('.s_btn');
     
     // 4. 进入到搜索也之后, 需要等待页面加载完成,
     page.on('load', async () => {
-        console.log('page load');
-
-        let srcList = await page.$$eval('#imgid .imgitem img', (dom) => dom.src);
-        console.log(srcList);
-        // 遍历保存图片
-        srcList.forEach(src => {
-            console.log(src);
-        });
+        // 5. 拿到所有的img的src
+        let imgList = await page.$$eval('img.main_img', (list) => list.map(img => img.src));
+        for (url of imgList) {
+            let reg = /\.(jpg|png|gif)$/;
+            await page.waitFor(1000);
+            if (reg.test(url)) {
+                await urlToImage(url);
+            } else {
+                await base64ToImage(url);
+            }
+        }
+        
+        console.log(`page load, img-count:${imgList.length}`);
+        
+        // 执行完成, 关闭browser
+        browser.close();
+        
     });
-    page.on('error', (err) =>{
+    page.on('error', (err) => {
         console.log(err);
-    })
-    console.log(333);
-})();
+    });
+};
+getImage();

@@ -7,7 +7,7 @@ const logger = require('koa-logger');
 
 const news = require('./routes/news');
 const users = require('./routes/users');
-
+const recruitInfo = require('./routes/recruitInfo');
 // error handler
 onerror(app);
 
@@ -17,7 +17,6 @@ app.use(bodyparser({
 }));
 app.use(json());
 app.use(logger());
-
 
 
 // logger
@@ -31,6 +30,7 @@ app.use(async (ctx, next) => {
 // routes
 app.use(news.routes(), news.allowedMethods());
 app.use(users.routes(), users.allowedMethods());
+app.use(recruitInfo.routes(), recruitInfo.allowedMethods());
 
 // error-handling
 app.on('error', (err, ctx) => {

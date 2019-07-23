@@ -1,9 +1,7 @@
 /**Created by montage_fz on 2019-07-18**/
 <template>
     <div class="BaiDu">
-        <header>
-            <el-button>导出</el-button>
-        </header>
+        <header></header>
         <div class="content">
             <NewsTable
                 :loading="loading"

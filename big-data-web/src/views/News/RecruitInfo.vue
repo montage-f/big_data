@@ -1,13 +1,11 @@
-/**Created by MonTage_fz on 2019/7/19**/
+/**Created by MonTage_fz on 2019/7/22**/
 <template>
-    <div class="NBA">
-        nab
-    </div>
+    <div class="Recruit"></div>
 </template>
 
 <script>
 export default {
-    name: 'NBA',
+    name: 'Recruit',
     components: {},
     data() {
         return {};
@@ -19,6 +17,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-.NBA {
+.Recruit {
 }
 </style>

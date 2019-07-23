@@ -14,7 +14,6 @@
 <script>
 // @ is an alias to /src
 import SubMenu from '../components/SubMenu';
-import asideInfo from '../router/asideInfo';
 
 export default {
     name: 'News',
@@ -23,7 +22,7 @@ export default {
     },
     computed: {
         routes() {
-            return asideInfo.find((v) => v.path === this.path).children;
+            return this.$router.options.routes;
         },
         path() {
             return this.$route.matched[0].path;
@@ -54,6 +53,7 @@ export default {
     .right {
         flex: 1;
         padding: 0 10px 0;
+        box-sizing: border-box;
     }
 }
 </style>

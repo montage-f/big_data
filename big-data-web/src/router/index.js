@@ -43,6 +43,11 @@ export default new Router({
                     path: 'thirtySixKr',
                     name: '36氪',
                     component: () => import('../views/News/ThirtySixKr')
+                },
+                {
+                    path: 'RecruitInfo',
+                    name: '招聘信息',
+                    component: () => import('../views/News/RecruitInfo')
                 }
             ]
         },
