@@ -50,7 +50,6 @@ export default {
                 }
                 return a - b;
             });
-            console.log(pay);
             return pay;
         },
         styleInfo() {
