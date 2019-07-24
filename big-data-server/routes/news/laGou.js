@@ -52,6 +52,7 @@ let log = async () => {
     let stream = fs.createWriteStream(fileName);
     let data = await infoList();
     stream.write(JSON.stringify(data));
+    stream.end();
     stream.on('finish', () => {
         console.log('写入完成');
     });

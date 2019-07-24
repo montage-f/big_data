@@ -59,6 +59,7 @@ let log = async () => {
     const stream = fs.createWriteStream(fileName);
     let data = await zhiLianInfoList();
     stream.write(JSON.stringify(data));
+    stream.end();
     stream.on('finish', () => {
         console.log('写入完成');
     });
