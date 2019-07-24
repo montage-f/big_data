@@ -1,6 +1,10 @@
 /**
  * Created by MonTage_fz on 2019/7/23
  */
+const path = require('path');
+const fs = require('fs');
+
+
 const {nightmare} = require('../../controller');
 const cheerio = require('cheerio');
 
@@ -50,4 +54,14 @@ let zhiLianInfoList = async () => {
     return arr;
 };
 
-module.exports = zhiLianInfoList;
+let log = async () => {
+    const fileName = path.resolve(__dirname, '../../text', '智联web薪资.json');
+    const stream = fs.createWriteStream(fileName);
+    let data = await zhiLianInfoList();
+    stream.write(JSON.stringify(data));
+    stream.end();
+    stream.on('finish', () => {
+        console.log('写入完成');
+    });
+};
+log()

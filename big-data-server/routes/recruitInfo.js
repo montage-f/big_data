@@ -3,8 +3,9 @@
  */
 const router = require('koa-router')();
 const {responseInfo: {SuccessInfo}} = require('../module');
-const zhiLianInfoList = require('./news/zhiLian');
 
+const laGou = require('../text/拉钩web薪资');
+const zhiLian = require('../text/智联web薪资');
 
 router.prefix('/api/RecruitInfo');
 
@@ -12,7 +13,15 @@ router.prefix('/api/RecruitInfo');
 router.get('/sou', async (ctx, next) => {
     ctx.body = new SuccessInfo({
         title: '智联招聘信息',
-        info: await zhiLianInfoList()
+        info: zhiLian
+    });
+});
+
+// 拉钩 前端信息
+router.get('/laGou', async (ctx, next) => {
+    ctx.body = new SuccessInfo({
+        title: '拉钩招聘信息',
+        info: laGou
     });
 });
 module.exports = router;
