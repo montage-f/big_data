@@ -36,6 +36,11 @@ export default {
         this.init();
     },
     computed: {},
+    watch: {
+        data() {
+            this.init();
+        }
+    },
     methods: {
         init() {
             let pie = this.$refs.Pie;

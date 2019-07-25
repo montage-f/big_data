@@ -31,7 +31,7 @@ const infoItem = async (url) => {
     $('.job-primary').each(function () {
         let company = $(this).find('.info-company .name').text();
         arr.push({
-            many: $(this).find('.red').text(),
+            pay: $(this).find('.red').text(),
             company: company.replace(/\n+|\s+/g, ''),
         });
     });

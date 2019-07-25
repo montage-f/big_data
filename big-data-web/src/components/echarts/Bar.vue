@@ -17,8 +17,7 @@ export default {
     mounted() {
         this.init();
     },
-    computed: {
-    },
+    computed: {},
     methods: {
         init() {
             let Bar = this.$refs.Bar;
