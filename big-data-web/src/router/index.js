@@ -60,6 +60,10 @@ export default new Router({
             path: '/movie',
             name: '电影',
             component: () => import('../views/Movie')
+        },
+        {
+            path: '/antD',
+            component: () => import('../views/AntD')
         }
     ]
 });
