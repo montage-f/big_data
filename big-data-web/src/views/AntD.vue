@@ -10,6 +10,9 @@
                          @change="e=>handleChange(e,record)"
                 />
             </template>
+            <template slot="proportion" slot-scope="proportion,record">
+                {{ proportion }}
+            </template>
         </a-table>
     </div>
 </template>
@@ -65,8 +68,8 @@
         {
             title: '调价比例',
             align: 'center',
-            dataIndex: 'D',
-            scopedSlots: { customRender: 'actionA' },
+            dataIndex: 'proportion',
+            scopedSlots: { customRender: 'proportion' },
         },
     ];
     export default {
@@ -74,7 +77,6 @@
         components: {},
         data() {
             return {
-                aaa: '1',
                 columns,
                 datas: [{
                     productBrand: 1,
@@ -105,8 +107,10 @@
         methods: {
             handleChange(e, record) {
                 const id = record.id
+                const { soldPrice, marketPrice } = record
                 const target = this.datas.filter(v => v.id === id)[0]
                 target['soldPrice'] = e.target.value
+                target['proportion'] = (e.target.value / marketPrice).toFixed(2)
             },
         },
     }
