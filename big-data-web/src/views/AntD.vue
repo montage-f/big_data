@@ -3,7 +3,7 @@
     <div class="AntD">
         <a-table
             :columns="columns"
-            :dataSource="datas"
+            :dataSource="tableResourse"
         >
             <template slot="soldPrice" slot-scope="soldPrice,record">
                 <a-input placeholder="Basic usage" v-model="soldPrice"
@@ -14,6 +14,7 @@
                 {{ proportion }}
             </template>
         </a-table>
+        <a-button @click="changeTableRow">切换</a-button>
     </div>
 </template>
 
@@ -78,6 +79,8 @@
         data() {
             return {
                 columns,
+                tableResourse: [],
+                toggle: false,
                 datas: [{
                     productBrand: 1,
                     id: 1,
@@ -98,10 +101,21 @@
                     productName: 111,
                     productSpecifications: 321,
                     soldPrice: 29999,
+                }, {
+                    productBrand: 1,
+                    id: 3,
+                    mainImg: 123,
+                    productuId: 321,
+                    proportion: 100,
+                    marketPrice: 2,
+                    productName: 111,
+                    productSpecifications: 321,
+                    soldPrice: 29999,
                 }],
             }
         },
         created() {
+            this.tableResourse = this.datas.slice(0, 1)
         },
         computed: {},
         methods: {
@@ -111,6 +125,11 @@
                 const target = this.datas.filter(v => v.id === id)[0]
                 target['soldPrice'] = e.target.value
                 target['proportion'] = (e.target.value / marketPrice).toFixed(2)
+            },
+            changeTableRow() {
+                this.tableResourse = this.toggle ? this.datas.slice(0, 1) : this.datas
+                this.toggle = !this.toggle
+                console.log(this.datas)
             },
         },
     }
