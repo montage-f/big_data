@@ -15,6 +15,8 @@
             </template>
         </a-table>
         <a-button @click="changeTableRow">切换</a-button>
+
+        <a-button v-for="(item,index) of list" :key="index" @click="btn(index)">{{ index+1 }}按钮</a-button>
     </div>
 </template>
 
@@ -112,6 +114,7 @@
                     productSpecifications: 321,
                     soldPrice: 29999,
                 }],
+                list: [1, 2, 3, 4, 5, 6, 7],
             }
         },
         created() {
@@ -130,6 +133,9 @@
                 this.tableResourse = this.toggle ? this.datas.slice(0, 1) : this.datas
                 this.toggle = !this.toggle
                 console.log(this.datas)
+            },
+            btn(index) {
+                alert(index)
             },
         },
     }
