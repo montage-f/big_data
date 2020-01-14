@@ -17,6 +17,7 @@
         <a-button @click="changeTableRow">切换</a-button>
 
         <a-button v-for="(item,index) of list" :key="index" @click="btn(index)">{{ index+1 }}按钮</a-button>
+        <a-button @click="changeStoreName">改变商品名称</a-button>
     </div>
 </template>
 
@@ -123,6 +124,7 @@
         computed: {},
         methods: {
             handleChange(e, record) {
+                console.log(record)
                 const id = record.id
                 const { soldPrice, marketPrice } = record
                 const target = this.datas.filter(v => v.id === id)[0]
@@ -136,6 +138,16 @@
             },
             btn(index) {
                 alert(index)
+            },
+            changeStoreName() {
+                this.toggle = !this.toggle
+                let name = this.toggle ? '商品名称' : '商品'
+                let data = this.columns.filter(item => item.title === name)[0]
+                if (this.toggle) {
+                    data.title = '商品'
+                } else {
+                    data.title = '商品名称'
+                }
             },
         },
     }
