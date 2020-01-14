@@ -18,6 +18,18 @@
 
         <a-button v-for="(item,index) of list" :key="index" @click="btn(index)">{{ index+1 }}按钮</a-button>
         <a-button @click="changeStoreName">改变商品名称</a-button>
+        <a-select
+            placeholder="Select a person"
+            optionFilterProp="children"
+            style="width: 200px"
+            v-model="selectValue"
+        >
+            <a-select-option
+                v-for="item of list"
+                :key="item"
+                :value="item">{{ item }}
+            </a-select-option>
+        </a-select>
     </div>
 </template>
 
@@ -116,6 +128,7 @@
                     soldPrice: 29999,
                 }],
                 list: [1, 2, 3, 4, 5, 6, 7],
+                selectValue: '',
             }
         },
         created() {
