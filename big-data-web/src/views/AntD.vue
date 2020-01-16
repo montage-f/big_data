@@ -18,16 +18,20 @@
 
         <a-button v-for="(item,index) of list" :key="index" @click="btn(index)">{{ index+1 }}按钮</a-button>
         <a-button @click="changeStoreName">改变商品名称</a-button>
+
         <a-select
+            labelInValue
             placeholder="Select a person"
             optionFilterProp="children"
             style="width: 200px"
             v-model="selectValue"
+            @change="onHandleChange"
         >
             <a-select-option
-                v-for="item of list"
-                :key="item"
-                :value="item">{{ item }}
+                v-for="(item,index) of receivingAddressList"
+                :key="index"
+                :value="item">
+                {{ item.receivingAddressShow }}
             </a-select-option>
         </a-select>
     </div>
@@ -128,7 +132,30 @@
                     soldPrice: 29999,
                 }],
                 list: [1, 2, 3, 4, 5, 6, 7],
-                selectValue: '',
+                selectValue: [],
+                receivingAddressList: [
+                    {
+                        'receivingAddressShow': '广东省广州市天河区勤天大厦1409 张三 13302538930',
+                        'receivingAddress': '广东省广州市天河区勤天大厦1409',
+                        'signatory': '张三',
+                        'signatoryPhone': '13302538930',
+                        'receivingAddressId': '1194903374334066689',
+                    },
+                    {
+                        'receivingAddress': '广东省广州市天河区勤天大厦1410',
+                        'receivingAddressShow': '广东省广州市天河区勤天大厦1410 李四 13302538930',
+                        'receivingAddressId': '1194903453132455938',
+                        'signatory': '李四',
+                        'signatoryPhone': '13302538930',
+                    },
+                    {
+                        'receivingAddressShow': '广东省广州市天河区勤天大厦1411 王五 13302538930',
+                        'signatoryPhone': '13302538930',
+                        'signatory': '王五',
+                        'receivingAddressId': '1194904327187660801',
+                        'receivingAddress': '广东省广州市天河区勤天大厦1411',
+                    },
+                ],
             }
         },
         created() {
@@ -161,6 +188,9 @@
                 } else {
                     data.title = '商品名称'
                 }
+            },
+            onHandleChange(value, option) {
+                console.log(value)
             },
         },
     }
